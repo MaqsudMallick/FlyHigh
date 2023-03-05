@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 async function loginUser(credentials) {
@@ -18,6 +18,23 @@ export default function Login(props) {
   const {setToken, setLocation} = props;
   const [locationInput, setLocationInput] = useState("");
 
+
+  useEffect(()=>{
+    navigator.geolocation.getCurrentPosition( async (position) => {
+      //alert(position.coords.latitude)
+      var city;
+      try{
+      const data = await fetch(`https://api.opencagedata.com/geocode/v1/json?key=2323c02c8f9e4b4eacc56842e8bd6a16&q=${position.coords.latitude}%2C+${position.coords.longitude}&pretty=1&no_annotations=1`)
+      city = await data.json();  
+    }
+      catch(err) {console.error(err)}
+        // .then(data => console.log(data.results[0].components.city))
+      console.log(city.rate.remaining);
+      console.log(city.results[0].components.city);
+      setLocationInput(city.results[0].components.city);
+    });
+    setLocation()
+  }, [setLocation])
   const handleSubmit = async e => {
     e.preventDefault();
     console.log(locationInput);
@@ -42,10 +59,10 @@ export default function Login(props) {
           <p>Password *</p>
           <input type="password" onChange={e => setPassword(e.target.value)} />
         </label>
-        <label>
+        {/* <label>
           <p>Location *</p>
-          <input type="text" onChange={e => setLocationInput(e.target.value)} />
-        </label>
+          <input type="text" value={locationInput} onChange={e => setLocationInput(e.target.value)} />
+        </label> */}
         <div>
           <button type="submit">Submit</button>
         </div>
