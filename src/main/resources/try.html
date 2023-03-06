@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Bot</title>
+    <style>
+        /* #chat {
+            visibility: hidden;
+        } */
+    </style>
+</head>
+
+<body>
+    <div>
+        <div id="display">
+            <p>Hi, I am chatbot</p>
+
+        </div>
+
+        <input type="text" name="" id="chat-msg">
+
+        <button id="chat">Send</button>
+
+    </div>
+    <script>
+        var destination_city;
+        var arrival_city;
+        var time;
+        var legs;
+
+        var querylist = ["Okay, I will push a special <br/>What is the departure city?", "Okay, what is arrival city?", "Please enter a time", "How many legs?"]
+        var i = 0
+        document.getElementById("chat").onclick = () => {
+            // alert('detected a click')
+            var msg = document.getElementById("chat-msg").value
+            document.getElementById("display").innerHTML += `<p>${msg}</p>`
+
+            if (i == 0) {
+                if (msg == "push special") {
+                    document.getElementById("display").innerHTML += querylist[i]
+                    i = i + 1
+                }
+                else document.getElementById("display").innerHTML += `<p>I am sorry. I cannot understand. You need help</p>`
+            }
+            else if (i == 1) {
+                document.getElementById("display").innerHTML += querylist[i]
+                i = i + 1
+                destination_city = msg;
+            }
+            else if (i == 2) {
+                document.getElementById("display").innerHTML += querylist[i]
+                i = i + 1
+                arrival_city = msg;
+            }
+            else if (i == 3) {
+                msg = msg.trim()
+                var parts = msg.split(" ")[0].split(':')
+                if (!isNaN(parts[0]) && !isNaN(parts[1]) && (msg.split(" ")[1] == "AM" || msg.split(" ")[1] == "PM")) {
+                    document.getElementById("display").innerHTML += querylist[i]
+                    i = i + 1
+                    time = { hr: parts[0], min: parts[1], am: msg.split(" ")[1] }
+                }
+                else {
+                    document.getElementById("display").innerHTML += `<p>I am sorry. I cannot understand. You need help</p>`
+                    i = 0
+                }
+            }
+            else if (i == 4) {
+                msg = msg.trim()
+                if (!isNaN(msg)) {
+                    document.getElementById("display").innerHTML += 'Success'
+                    i = 0
+                    legs = msg;
+                    const data = {
+                        destination_city: destination_city,
+                        arrival_city: arrival_city,
+                        time: time,
+                        legs: legs
+                    };
+                    fetch('localhost:8080/submitspecial', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    }).then(res => {
+                        console.log(res);
+                    }).catch(err => console.error(err));
+
+                }
+                else {
+                    document.getElementById("display").innerHTML += `<p>I am sorry. I cannot understand. You need help</p>`
+                    i = 0
+                }
+            }
+            document.getElementById("chat-msg").value = ''
+        }
+    </script>
+</body>
+
+</html>

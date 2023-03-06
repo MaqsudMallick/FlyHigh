@@ -12,13 +12,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.core.io.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.io.*;
+
+
 class Time{
   int hour;
   int min;
   boolean am;
   public Time(int hour, int min, boolean am){
-    if(0<=hour && hour<=11 && 0<=min && min<=59){
+    if(0<=hour && hour<=12 && 0<=min && min<=59){
       this.hour = hour;
       this.min = min;
       this.am = am;
@@ -120,20 +124,33 @@ class Flights{
       e.printStackTrace();
     }
    }
+  public Flights(int v){
+    flights = new ArrayList<Flight>();
+  }
   public String search(String src, String dst){
     return flights.stream().filter(flight -> flight.equal(src, dst)).reduce("", (a, b) -> a+b.displayflight()+"<br />", (a, b) -> a+b);
   }
   public String searchAll(String src){
     return flights.stream().filter(flight->flight.equal(src)).reduce("", (a, b) -> a+b.displayflight()+"<br />", (a, b) -> a+b);
   }
+  public String getAll(){
+    return flights.stream().reduce("", (a, b) -> a+b.displayflight() + "<br />", (a, b)-> a+b);
+  }
+  public void addflight(Flight t){
+    flights.add(t);
+    System.out.println("Spcial Entry List:");
+    flights.stream().forEach(e->System.out.println(e.displayflight()));
+  }
 }
 @SpringBootApplication
 @RestController
 public class DemoApplication {
     Flights fl;
+    Flights special;
     List<User> users;
     public DemoApplication(){
       fl = new Flights();
+      special = new Flights(0);
       users = new ArrayList<User>();
     }
     public static void main(String[] args) {
@@ -167,6 +184,45 @@ public class DemoApplication {
            System.out.println("New User: " + u.getusername());
           users.add(u);
       }
+      return r;
+    }
+    @GetMapping("/admin")
+    public String admin(@RequestParam(value = "p") String password){
+      String adminpassword = "xxx";
+      if(password.equals(adminpassword)){
+       return "<form action=/submitspecial method=POST><label for=departure>Departure city</label><input id=departure name=source required><label for=arrival>Arrival city</label><input id=arrival name=goal required><label for=time>TIme</label><input id=time name=time required type=time><label for=legs>Legs</label><input id=legs name=legs type=number max=9 min=0> <input type=submit></form>";
+      }
+      else return "Wrong Password";
+    }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/submitspecial")
+    @ResponseBody
+    public Response specialentry(@RequestBody String request){
+      Response r = new Response();
+      System.out.println("Special entry request: " + request);
+      String[] params = request.split("&");
+      String[] hrmin =  params[2].split("=")[1].split("%3A");
+      int hr = Integer.parseInt(hrmin[0]);
+      int min = Integer.parseInt(hrmin[1]);
+      boolean am = true;
+      if(hr>=12) { am = false; hr-=12;}
+      else if(hr==0) hr=12;  
+      Time time = new Time(hr, min, am);
+      Flight t  = new Flight(params[0].split("=")[1],
+                             params[1].split("=")[1],
+                             time,
+                             Integer.parseInt(params[3].split("=")[1]) );
+      System.out.println(request.split("\"")[0]);
+      special.addflight(t);
+      r.settoken("success");
+      return r;
+    }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/speciallist")
+    @ResponseBody
+    public Response getspeciallist(){
+      Response r = new Response();
+      r.settoken(special.getAll());
       return r;
     }
 

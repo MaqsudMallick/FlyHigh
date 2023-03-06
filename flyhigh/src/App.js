@@ -4,6 +4,7 @@ import Dashboard from './Dashboard';
 import Login from './Login';
 import Preferences from './Preferences';
 import useToken from './useToken';
+import Special from './Special'
 
 function App() {
 
@@ -18,8 +19,9 @@ function App() {
 
   return (
     <div className="wrapper">
-      <h1>Application</h1>
+      <h1>Fly High</h1>
       <Preferences  setLocation={setLocation} setDest={setDest} location={location}></Preferences>
+      <Special />
       {location && <Dashboard location={location} dest={dest}/> }
     </div>
   );
