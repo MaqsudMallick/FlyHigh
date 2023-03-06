@@ -1,13 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react'
+import Special from './Special';
 var i = 0
 var departure_city;
 var arrival_city;
 var time;
 var legs;
 function App() {
-  const [msg, setMsg] = useState("Hi I am Assignment 4")
+  const [msg, setMsg] = useState("Bot: Hi I am Assignment 4")
   const [usermsg, setUsermsg] = useState("");
   
   const bot = (e)=>{
@@ -51,16 +52,24 @@ function App() {
   }
 
   return (
-    <div>
+    <div class="container">
+      <div>
+        <div class="input-group mb-3">
+      <input type="text" class="form-control" value={usermsg} name="" id="chat-msg" onChange={e=>setUsermsg(e.target.value)}/> 
+
+      <button class="btn btn-outline-secondary" id="chat" type="submit" onClick={bot}>Chat</button>
+      </div>
         <div id="display">
-            {msg.split('\n').map(e=><p>{e}</p>)}
+            {msg.split('\n').reverse().map(e=>{
+              if(e.indexOf('You:')==0) return <p>{e}</p>
+              else return <p class='bot-msg'>{e}</p>
+            }) }
 
-        </div>
-    
-        <input type="text" value={usermsg} name="" id="chat-msg" onChange={e=>setUsermsg(e.target.value)}/> 
-
-        <button id="chat" type="submit" onClick={bot}>Send</button>
-    
+        </div>  
+    </div>
+    <div class="special">
+            <Special />
+    </div>
     </div>
   );
 }
