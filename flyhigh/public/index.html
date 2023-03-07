@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -24,12 +22,101 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet">
+  <style>
+    li {
+      font-size: 1.1em;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      height: 100vh;
+      color: white;
+    }
+
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .nav-link {
+      color: white;
+    }
+
+    .btn {
+      color: white;
+    }
+
+    .form-floating>label {
+      color: black
+    }
+
+    canvas {
+
+      position: absolute;
+      top: 100px;
+      left: 350px;
+    }
+  </style>
+  <title>Fly High</title>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom ">
+
+
+
+      <ul class="nav nav-pills">
+        <!-- <li class="nav-item"><a href="#" class="nav-link"><img src="%PUBLIC_URL%/Logo.png" width="50" height="50"></a>
+        </li> -->
+        <li class="nav-item"><a href="#" class="nav-link"></a></li>
+        <li class="nav-item"><a href="#" class="nav-link active">Fly High</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Sign Up</a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Assignment 4 </a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+        <li class="nav-item"><a href="#" class="nav-link"> </a></li>
+
+        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="mailto:maqsudmallick@gmail.com" class="nav-link">Contact</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+      </ul>
+    </header>
+  </div>
+  <canvas id="mycanvas"></canvas>
+  <div id="root"></div>
+  <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -39,5 +126,146 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r75/three.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+  <script>
+    //Using main window height and width
+    //for fullscreen effect
+    var width = 200;
+    var height = 200;
+    const canvas = document.getElementById('mycanvas');
+    //Renderer animates mainly
+    var renderer = new THREE.WebGLRenderer({
+      canvas: canvas,
+      alpha: true
+    });
+    // renderer.setClearColor(0x0000ff);
+    //Setting width and height
+    renderer.setSize(width, height);
+    //adding canvas without HTML5
+    document.body.appendChild(renderer.domElement);
+    //New THREE.js SCENE
+    var scene = new THREE.Scene;
+
+    var planeGroup = new THREE.Object3D();
+    var bladeGroup = new THREE.Object3D();
+    bladeGroup.add(planeGroup);
+    scene.add(planeGroup);
+
+    var planeMaterial = new THREE.MeshLambertMaterial({ color: 0xf2ff0a });
+    var planeMaterialBlack = new THREE.MeshLambertMaterial({ color: 0x000000 });
+    var planeBody = new THREE.CylinderGeometry(0.8, 0.5, 3, 10);
+    var planeTail = new THREE.CylinderGeometry(0.5, 0.1, 1.2, 10);
+    var planeTailWing = new THREE.CubeGeometry(3, 0.2, 0.5);
+    var planeFront = new THREE.CubeGeometry(1, 1, 1);
+    var planeRotorMiddle = new THREE.SphereGeometry(0.5, 10, 1);
+    var planeRotorBlade = new THREE.CubeGeometry(4, 0.2, 0.5);
+    var planeRotorBlade2 = new THREE.CubeGeometry(4, 0.2, 0.5);
+    var wing1 = new THREE.CubeGeometry(0.1, 1.5, 6);
+    var wing2 = new THREE.CubeGeometry(0.1, 1.5, 6);
+    var string = new THREE.CubeGeometry(0.2, 0.2, 1.6);
+    var string1 = new THREE.CubeGeometry(0.2, 0.2, 1.6);
+    var planeRotorBlade = new THREE.Mesh(planeRotorBlade, planeMaterialBlack);
+    var planeRotorBlade2 = new THREE.Mesh(planeRotorBlade2, planeMaterialBlack);
+
+    var string = new THREE.Mesh(string, planeMaterialBlack);
+    var string1 = new THREE.Mesh(string1, planeMaterialBlack);
+    var wing1 = new THREE.Mesh(wing1, planeMaterial);
+    var wing2 = new THREE.Mesh(wing2, planeMaterial);
+    var planeRotorMiddle = new THREE.Mesh(planeRotorMiddle, planeMaterial);
+    var planeFront = new THREE.Mesh(planeFront, planeMaterial);
+    var planeBody = new THREE.Mesh(planeBody, planeMaterial);
+    var planeTail = new THREE.Mesh(planeTail, planeMaterial);
+    var planeTailWing = new THREE.Mesh(planeTailWing, planeMaterial);
+
+    planeFront.position.y = 1.5;
+    planeRotorMiddle.position.y = 2;
+    planeRotorBlade.position.y = 2.1;
+    planeRotorBlade.rotation.y = 0.5 * Math.PI;
+    planeRotorBlade2.position.y = 2.1;
+    planeRotorBlade2.rotation.y = 15;
+    wing1.rotation.y = 0.5 * Math.PI;
+    wing2.rotation.y = 0.5 * Math.PI;
+    wing2.position.z = -1.5;
+    string.position.x = -2.2;
+    string.position.z = -0.75;
+    string1.position.x = 2.2;
+    string1.position.z = -0.75;
+    planeTail.position.y = -2.1;
+    planeTailWing.position.y = -2;
+    planeTailWing.rotation.x = 0.5 * Math.PI;
+
+
+    planeGroup.position.x = -10;
+    planeGroup.position.y = 20;
+    planeGroup.position.z = 10;
+
+    bladeGroup.add(planeRotorBlade);
+    bladeGroup.add(planeRotorBlade2);
+
+    planeGroup.add(wing1);
+    planeGroup.add(wing2);
+    planeGroup.add(bladeGroup);
+    planeGroup.rotation.x = Math.PI / 2;
+    planeGroup.add(planeBody);
+    planeGroup.add(planeFront);
+    planeGroup.add(planeRotorMiddle);
+    planeGroup.add(string);
+    planeGroup.add(string1);
+    planeGroup.add(planeTail);
+    planeGroup.add(planeTailWing);
+
+
+    scene.add(planeGroup);
+
+    var camera = new THREE.PerspectiveCamera(25, width / height, 0.5, 10000);
+
+    camera.position.y = 30;
+    camera.position.z = 24;
+    camera.position.x = 1;
+
+    scene.add(camera);
+
+    //Point the camera at the cube
+    camera.lookAt(planeGroup.position);
+
+    //camera (sky like the sun and //reflective greenhouse effect)
+    // var skyboxGeometry = new THREE.CubeGeometry(10000, 10000, 10000);
+    // var skyboxMaterial = new THREE.MeshBasicMaterial({
+    //   color: 0xF6E1C3,
+    //   side: THREE.BackSide
+    // });
+    // var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
+
+    // //Add the skybox (lights)
+    // scene.add(skybox);
+
+    //Main light
+    var pointLight = new THREE.PointLight(0xffffff);
+    pointLight.position.set(0, 300, 200);
+
+    //Add the main light to the scene
+    scene.add(pointLight);
+
+    //CLOCK
+    var clock = new THREE.Clock;
+    //END CLOCK
+
+    /* MAIN ANIMATION FUNCTION FOR GOOD PRECISION. Using jQuery, You could make a lambada function */
+    function render() {
+      renderer.render(scene, camera);
+      renderer.setClearColor(0x000000, 0);
+      requestAnimationFrame(render);
+      bladeGroup.rotation.y += 0.3;
+      planeGroup.rotation.z += 0.004;
+    }
+
+    render();
+  </script>
+</body>
+
 </html>

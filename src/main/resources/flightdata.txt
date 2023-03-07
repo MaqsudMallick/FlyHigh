@@ -99887,7 +99887,7 @@ Chennai Ahmedabad 0:43 AM 7
 Hyderabad Chennai 8:39 AM 5
 Ahmedabad Delhi 1:25 PM 7
 Chennai Mumbai 1:36 PM 10
-Mumbai Jaipur 4:14 PM 3
+Mumbai Jaipur 4:15 PM 3
 Ahmedabad Surat 1:20 AM 2
 Jaipur Ahmedabad 11:5 AM 7
 Jaipur Lucknow 6:3 PM 6

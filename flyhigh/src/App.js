@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className="wrapper">
-      <h1>Fly High</h1>
+      <h1 style={{fontFamily: 'Tangerine', fontSize: 100}}class="text-center pb-5 pt-5">Fly High</h1>
       <Preferences  setLocation={setLocation} setDest={setDest} location={location}></Preferences>
       <Special />
       {location && <Dashboard location={location} dest={dest}/> }

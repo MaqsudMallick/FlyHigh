@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import './Login.css';
 
 async function loginUser(credentials) {
  return fetch('http://localhost:8080/login', {
@@ -48,25 +49,34 @@ export default function Login(props) {
   }
 
   return(
-    <div className="login-wrapper">
-      <h1>Please Log In</h1>
+    <div class="text-center login-wrapper">
+      <main class="form-signin w-30 m-auto mt-5">
+      <img class="mb-4" src="Logo.png" alt="" width="72" height="72"></img>
+      <h1 class='h3 mb-3 fw-normal'>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          <p>Username *</p>
-          <input type="text" onChange={e => setUserName(e.target.value)} />
-        </label>
-        <label>
-          <p>Password *</p>
-          <input type="password" onChange={e => setPassword(e.target.value)} />
-        </label>
+        <div class="form-floating">
+          <input type="text" id="floatingInput" class="form-control" onChange={e => setUserName(e.target.value)} placeholder="Raj" required/>
+          <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating">
+        
+          <input class="form-control" id="floatingPassword" placeholder='a' type="password" onChange={e => setPassword(e.target.value)} required/>
+          <label for="floatingPassword">Password</label>
+        </div>
         {/* <label>
           <p>Location *</p>
           <input type="text" value={locationInput} onChange={e => setLocationInput(e.target.value)} />
         </label> */}
+        <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me" /> Remember me
+      </label>
+      </div>
         <div>
-          <button type="submit">Submit</button>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
         </div>
       </form>
+      </main>
     </div>
   )
 }
