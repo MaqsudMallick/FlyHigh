@@ -84,7 +84,7 @@ export default function Dashboard(props) {
         </div>
         
         </>);
-          return <li>{flight}</li>})))
+        })))
           .catch(error => console.error(error));
       }, [props]);
 

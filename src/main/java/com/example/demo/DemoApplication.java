@@ -194,7 +194,7 @@ public class DemoApplication {
       }
       else return "Wrong Password";
     }
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000","http://localhost:3006"})
     @PostMapping("/submitspecial")
     @ResponseBody
     public Response specialentry(@RequestBody String request){
@@ -217,7 +217,7 @@ public class DemoApplication {
       r.settoken("success");
       return r;
     }
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000","http://localhost:3006"})
     @GetMapping("/speciallist")
     @ResponseBody
     public Response getspeciallist(){
