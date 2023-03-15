@@ -14,10 +14,10 @@ int main(){
         string *am;
         if((int)(rand()%2)) am = new string("AM");
         else am = new string("PM");
-        int legs = (int)(rand()%10);
+        int legs = (int)(rand()%4);
         if(departure_city==arrival_city) arrival_city = 0;
         // printf("%s", am);
-        fprintf(fp, "%s %s %d:%d %s %d\n", v[departure_city].c_str(), v[arrival_city].c_str(), hr, min, (*am).c_str(), legs+1);
+        fprintf(fp, "%s %s %d:%d %s %d\n", v[departure_city].c_str(), v[arrival_city].c_str(), hr, min, (*am).c_str(), legs);
     }
     fclose(fp);
 

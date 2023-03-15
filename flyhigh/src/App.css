@@ -41,5 +41,22 @@
 }
 
 .w-40 {
-  width: 70%;
+  width: 60%;
+  margin: 0 20px 0 20px;
+}
+
+.map-leaflet-container {
+  width: 500px;
+  height: 500px;
+  position: fixed;
+  top: 290px;
+  left: 940px;
+  z-index: 5;
+}
+
+.map-cross {
+  position: fixed;
+  z-index: 6;
+  top: 250px;
+  left: 1400px;
 }

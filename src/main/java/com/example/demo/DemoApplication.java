@@ -227,4 +227,3 @@ public class DemoApplication {
     }
 
 }
-//departure city, time, arrival city

@@ -1,9 +1,15 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
- 
+import {unstable_batchedUpdates} from 'react-dom'
+import IndiaMap from './IndiaMap';
 
+const cities = ["Mumbai", "Delhi", "Hyderabad", "Ahmedabad", "Chennai", "Kolkata", "Lucknow", "Surat", "Pune", "Jaipur"]
 export default function Dashboard(props) {
+
+    var cityList = [];
     const [recommendations, setRecommendations] = useState();
+    const [route, setRoute] = useState(["Kolkata"]);
+    const [isMap, toggleMap] = useState({isHidden: true});
     const payment = (e)=>{
         //e.preventDefault();
         alert('Payment Successful!')
@@ -16,16 +22,35 @@ export default function Dashboard(props) {
             var params = flight.split(',')
           params = params.map(e=>{return `${e.split(':')[1]}${e.split(':').length>2?':'+e.split(':')[2]:''}`})
           const idp = `payout${index}`;
+          const idm = `map${index}`
           const hrid = `#${idp}`
+          const hrmid = `#${idm}`
+          const filteredcities = cities.filter(city => city!=props.location && city!=props.dest);
+          const randomCities = [];
+        while (randomCities.length < parseInt(params[3]) && filteredcities.length > 0) {
+          const index = Math.floor(Math.random() * filteredcities.length);
+          randomCities.push(filteredcities.splice(index, 1)[0]);
+        }
+        const result = randomCities.join("-to-");
+        const hoplist = parseInt(params[3])==0?'no stop':`${params[0]}-to-${result}-to-${params[1]}     ${params[3]} leg(s)`;
+        randomCities.unshift(params[0]);
+        randomCities.push(params[1]);
+        cityList.push(randomCities);
           return ( <>
-          <div class="list-group list-group-flush border-bottom scrollarea w-40 m-auto">
+          <div class="list-group list-group-flush border-bottom scrollarea w-40">
           <a href={hrid} data-bs-toggle="collapse" role="button" class="list-group-item list-group-item-action active py-3 lh-sm" aria-current="true">
             <div class="d-flex w-100 align-items-center justify-content-between">
               <strong class="mb-1">{params[0]} to {params[1]}</strong>
               <small>{params[2]}</small>
             </div>
-            <div class="col-10 mb-1 small">{params[3]} leg(s) &emsp;&emsp;${Math.floor(Math.random()*1000)+1000}</div>
+            <div class="col-10 mb-1 small">{hoplist} &emsp;&emsp;${Math.floor(Math.random()*1000)+1000}</div>
           </a>
+          {/* Visualize  */}
+          <button type="button" onClick={(e)=>{
+            unstable_batchedUpdates(() => {
+              setRoute(cityList[index]); toggleMap({isHidden: !isMap.isHidden});
+         })}} class="btn btn-success"  data-toggle="collapse" data-target="#mapofindia">Visualize</button>
+        
           {/* Collapse */}
           <div class="collapse" id={idp}>
         <form class="needs-validation" noValidate="">
@@ -87,10 +112,19 @@ export default function Dashboard(props) {
         })))
           .catch(error => console.error(error));
       }, [props]);
-
+  const visstyle = {visibility: isMap.isHidden?'hidden':'visible'};
   return(
     <>
     <h2 class="text-center text-decoration-underline">Dashboard</h2>
+    {/* <a href="#mapcentral" data-bs-toggle="collapse" role="button" class="btn btn-success">Visualize</a> */}
+    <div style={visstyle}>
+    <IndiaMap route={route} />
+    </div>
+    <button class="map-cross btn btn-danger" onClick={()=>{toggleMap({isHidden: !isMap.isHidden})}}>
+        X
+      </button>
+    {/* <div class="collapse" id="mapcentral"><IndiaMap /></div> */}
+    
     <br></br>
     {/* {recommendations} */}
     <div>
